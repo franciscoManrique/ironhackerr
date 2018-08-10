@@ -1,0 +1,15 @@
+<div class="col-6">
+  <form action="/sessions/create" method="POST">
+
+  <div class="form-group">
+        <input class="form-control mr-sm-2 {{#if errors.email}}is-invalid{{/if}}" id='email' name="email" type="text" placeholder="Email" style="width:100%;" value="{{user.email}}"><br>
+        {{#if errors.email}} <small style="color:red;">{{errors.email}}</small> {{/if}}
+  </div>
+
+  <div class="form-group">
+     <input class="form-control mr-sm-2 {{#if errors.password}}is-invalid{{/if}}" id="password" name="password" type="password" placeholder="Password" style="width:100%;"><br>
+     {{#if errors.password}} <small style="color:red;">{{errors.password}}</small>{{/if}}
+  </div>
+  <button type="submit" class="btn btn-primary">Log in</button>
+</form>
+</div>

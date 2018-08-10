@@ -1,0 +1,51 @@
+{{#if errors}}
+    <div class="alert alert-danger">{{errors}}</div>
+    {{else}}
+    {{#isAdmin session}}
+<div>
+    <span class="badge badge-info" style="float:right;">GUEST</span>
+    <span class="badge badge-warning" style="float:right; margin-right:10px;">ADMIN</span>
+</div>
+<div class="clearfix" style="margin-bottom: 20px;"></div>
+{{/isAdmin}}
+
+<div class="container-fluid">
+
+    {{#each users as |user|}}
+    <div class="alert alert-{{#isAdmin user}}warning {{else}}info{{/isAdmin}}" role="alert">
+        <img class="card-img-top" style="width: 40px;" src="/documents/{{user.image}}" alt="Card image cap">
+        <b><a href="/users/{{user.id}}">{{user.name}} {{user.lastname}}</a></b>
+
+        {{#isNotFriend user ../friendships}}
+            <form action="/friendship/{{user.id}}/create" method="POST">
+                <button type="submit" class="btn btn-primary btn-sm" style="float:right;">Follow</button>
+            </form>
+        {{else}} 
+     {{/isNotFriend}}
+
+         {{#isAdmin ../session}}
+            <small> <a href="mailto:{{user.email}}" class="{{#if user.active}}{{else}}red{{/if}}">{{user.email}}</a></small>
+        <form action="/users/{{user.id}}/delete" method="POST" class="formInline">
+            <button type="submit" class="btn btn-danger floatRight">x</button>
+        </form>
+        {{/isAdmin}}
+
+    </div>
+    {{/each}}
+
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="/list?page=1">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="/list?page=2">2</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="/list?page=3">3</a>
+        </li>
+    </ul>
+</nav>
+{{/if}}

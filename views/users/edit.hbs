@@ -1,0 +1,53 @@
+    <form action='/users/{{user.id}}/edit' method="POST" enctype="multipart/form-data">
+
+            <label for="name">Name</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control {{#if errors.name}}is-invalid{{/if}}" placeholder="name" name="name" value="{{user.name}}">
+             {{#if errors.name}}<small style="color:red;">{{errors.name}}</small> {{/if}}
+        </div>
+
+            <label for="lastname">Last Name</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control {{#if errors.lastname}}is-invalid{{/if}}" placeholder="lastname" name="lastname" value="{{user.lastname}}">
+             {{#if errors.lastname}}<small style="color:red;">{{errors.lastname}}</small> {{/if}}
+        </div>
+
+            <label for="hobbies">Hobbies</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Hobbies" name="hobbies" value="{{user.hobbies}}">
+        </div>
+
+            <label for="career">Career</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Career" name="career" value="{{user.career}}"> 
+        </div>
+
+      {{!-- <label for="image">Image</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="image" name="image" value="{{user.image}}">
+        </div> --}}
+        
+            <label for="avatar">Avatar</label>
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" name="image">
+        </div>
+
+            <label for="email">Email</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="image" name="email" value="{{user.email}}" readonly>
+        </div>
+
+        {{#isAdmin session}}
+            <label for="role">Role</label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="role" name="role" value="{{../user.role}}"> 
+        </div>
+        {{/isAdmin}}
+
+             {{!-- <select name="role" id="role">
+                <option value="ADMIN">ADMIN</option>
+                <option value="GUEST">GUEST</option>
+            </select>  --}}
+
+        <button type="submit" class="btn btn-primary">Submit edition</button>
+    </form>

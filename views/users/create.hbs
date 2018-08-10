@@ -1,0 +1,25 @@
+<div class="col-6">
+  <form action="/users/create" method="POST">
+
+  <div>
+        <input class="form-control mr-sm-2 {{#if errors.name}}is-invalid{{/if}}" id="name" name="name" type="text" placeholder="Name" value="{{user.name}}">
+        {{#if errors.name}} <small class="red block">{{errors.name}}</small> {{/if}}
+      </div> 
+
+    <div>
+      <input class="form-control mr-sm-2 {{#if errors.lastname}}is-invalid{{/if}}" id="lastname" name="lastname" type="text" placeholder="Last name" value="{{user.lastname}}">
+      {{#if errors.lastname}} <small class="red block">{{errors.lastname}}</small> {{/if}}
+    </div> 
+
+    <div>
+      <input class="form-control mr-sm-2 {{#if errors.email}}is-invalid{{/if}}" id="email" name="email" type="text" placeholder="Email" style="width:100%;" value="{{user.email}}"><br>
+      {{#if errors.email}} <small class="red">{{errors.email}}</small> {{/if}}
+    </div> 
+    <div>
+      <input class="form-control mr-sm-2 {{#if errors.password}}is-invalid{{/if}}" id="password" name="password" type="password" placeholder="Password" style="width:100%;" value="{{user.password}}"><br>
+      {{#if errors.password}} <small class="red">{{errors.password}}</small> {{/if}}
+    </div> 
+
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+</div>

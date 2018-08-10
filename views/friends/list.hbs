@@ -1,0 +1,31 @@
+{{#if error.noFriends}}
+<div class="alert alert-danger">{{error.noFriends}}</div>
+{{else}}
+
+<div class="col-12 container-friends">
+
+    {{#each friends as |friend|}}
+
+
+ <div class="card-artist">
+        <div style="width:200px; position:relative;">
+            <a href="/users/{{friend.id}}">
+            <img class="card-img-top" src="/documents/{{friend.image}}" alt="Card image cap"></img>
+            </a>
+        </div>
+
+        <div class="card-artist-info" style="text-align:center">
+            <small class="name-artists">{{upperCase friend.name}}</small>
+             <small><i class="fas fa-user-friends">{{friend.numberOfFriends}}</i></small>
+        </div>
+ </div>
+    {{/each}}
+
+{{/if}}
+
+</div>
+
+
+
+
+

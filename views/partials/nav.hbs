@@ -1,0 +1,33 @@
+<nav class="main-nav">
+   <div class="container-fluid">
+        <div class="row">
+    <div class="col-6">
+            <form action='/users/list' method="GET">
+                <input type="text" class="form-control" id="name" placeholder="find a friend" name="name">
+            </form>
+    </div>
+    <div class="col-2 mt-2">
+      <a href="/{{session.id}}" class="userSession">{{capitalize session.name}} {{#sliptLastname session.lastname }} {{session.lastname}} {{/sliptLastname}} {{#isAdmin session}} (Admin){{/isAdmin}}</a>
+    </div>
+    {{#isAdmin session}}
+    {{else}}
+     <div class="col-1 mt-2">
+        <a href="/help/create"><i class="fas fa-question"></i></i></a>
+    </div>
+    {{/isAdmin}}
+
+    <div class="col-1 mt-2">
+        <a href="/{{session._id}}"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="col-1 mt-2">
+        <a href="/{{session._id}}"><i class="fas fa-ellipsis-h"></i></a>
+    </div>
+    
+    <div class="col-1 mt-2">
+       <form action="/sessions/delete" method="POST">
+        <button type="submit" class="removeBorder" style="background-color: transparent;"><i class="fas fa-sign-out-alt"></i></button>
+         </form>
+    </div>
+</div>
+   </div>
+</nav>

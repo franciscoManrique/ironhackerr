@@ -1,0 +1,92 @@
+
+  
+  {{#each posts as |post|}}
+
+    <div class="row" data-id="{{datasetForScroll post.createdAt}}">
+        <div class="comment">
+            <img class="mr-3" src="/documents/{{../user.image}}" style="width:60px;" alt="image">
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-8">
+                        <small>{{upperCase post.author.name}}</small> - <small>{{datetime post.createdAt}}</small>
+                        <h6>{{upperCase post.title}}</h6>
+                    </div>
+                    
+                    <div class="col-1">
+                        <a href=""><i class="far fa-share-square"></i></a>
+                    </div>
+    
+                    <div class="col-1">
+                         <form action="/users/{{../user.id}}/posts/{{post.id}}/like" method="POST" class="formInline">
+                             <button type="submit" class="removeBorder" style="background-color: transparent;"><i class="far fa-thumbs-up" style="cursor:pointer;"></i></button>
+                            <span>{{post.likes}}</span> 
+                        </form> 
+                    </div> 
+
+                    <div class="col-1"> 
+                        <i class="far fa-comment" id="commentIcon"></i>
+                    </div>
+
+                    <div class="col-1">
+                        {{#isOwneredByOwnSession ../user ../session}} 
+                             <form action="/users/{{../user.id}}/posts/{{post.id}}/delete" method="POST" class="formInline">
+                                <button type="submit" class="removeBorder" style="background-color: transparent;"><i href="javascript;" class="far fa-trash-alt" style="cursor:pointer;"></i></button>
+                            </form> 
+                        {{/isOwneredByOwnSession}}
+                    </div>
+                </div>
+
+                    <div class="row mb-5">
+                        {{#if post.image}}
+                            <div class="col-12">
+                                <img src="/documents/{{post.image}}" class="postImage">
+                            </div>
+                        {{/if}}
+                        <div class="col-12">
+                             <small>{{post.text}}</small>
+                        </div>
+                    </div>
+                     {{#each ../comments as |comment|}} 
+                        {{#isYourCommentOverPost comment post}}
+                         <div class="row hoverIncreaseSize"> 
+                             <div class="col-1"></div>
+                            <div class="col-8">
+                                <img src="{{#if comment.author}}/documents/{{comment.author.image}}{{else}}/documents/avatar.png{{/if}}"style="width:23px;" alt="image"> <strong><small>{{#if comment.author}}{{capitalize comment.author.name}}{{else}}Anonimous{{/if}}</small></strong> - <small>{{datetime comment.createdAt}}</small>
+                                <p>{{capitalize comment.text}}</p>
+                            </div>
+                            <div class="col-1">
+                                <a href=""><i class="far fa-share-square"></i></a>
+                            </div>
+
+                            <div class="col-1"> 
+                               
+                                <form action="/users/{{../user.id}}/posts/{{post.id}}/like" method="POST" class="formInline">
+                                    <button type="submit" class="removeBorder" style="background-color: transparent;"><i class="far fa-thumbs-up" style="cursor:pointer;"></i></button>
+                                    <span>{{post.likes}}</span> 
+                                </form> 
+                            </div> 
+                           {{#isOwneredByOwnSessionCommentRelated comment.author ../../session}}
+                                 <div class="col-1">
+                                    <form action="/users/{{../../user.id}}/posts/{{post.id}}/comments/{{comment._id}}/delete" method="POST" class="formInline">
+                                        <button type="submit" class="removeBorder" style="background-color: transparent;"><i href="javascript;" class="far fa-trash-alt" style="cursor:pointer;"></i></button>
+                                    </form> 
+                                </div> 
+                           {{/isOwneredByOwnSessionCommentRelated}}
+                        </div> 
+                        <hr> 
+                        {{/isYourCommentOverPost}} 
+                        
+                     {{/each}}
+
+                <form action="/users/{{../user.id}}/posts/{{post.id}}/comments/create" method="POST">
+                 <textarea class="form-control m-2 {{#if errors.text}}is-invalid{{/if}}" style="width: 100%;" id="text" name="text" rows="3" placeholder="Comment this post"></textarea> 
+                    {{#if errors.text}}
+                         <small class="red">{{errors.text}}</small>
+                     {{/if}}
+                      <button type="submit" class="btn btn-sm btn-comment" style="width: 100%;">Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{/each}}

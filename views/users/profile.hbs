@@ -1,0 +1,85 @@
+<div class="container">
+
+    {{#if error.notFriend}} 
+        <div class="alert alert-danger">{{error.notFriend}}</div>
+    {{/if}}
+
+    <div class="row mb-3 headerProfile">
+
+         {{#if error.notFriend}}
+            <img src="/documents/{{user.image}}" alt="userImage" style="width:250px; height: 200px;">
+            {{else}}
+            <div class="col-12 backgroundImageContainer">
+
+              <img src="{{#if user.background}}/documents/{{user.background}}{{else}}/documents/{{user.background}}{{/if}} "alt="backgroundImage" class="backgroundImageProfile">
+              <img src="/documents/{{user.image}}" alt="imageProfile" class="positionImageProfile">
+              <div class="centerName"><h1>{{upperCase user.name}} <br> {{upperCase user.lastname}}</h1></div>
+              <div class="centerFriends"><a href="/users/{{user._id}}/friends/list" style="color:white;">Friends {{user.numberOfFriends}}</a></div>
+           
+               {{!-- <div class="centerCamera">
+              <label for="file-upload" class="labelPointer"><i class="fas fa-camera whiteCamera"></i></qlabel>
+              <input type="file" class="form-control" name="image" style="border:none;" id="file-upload">
+              </div> --}}
+
+            </div>
+         {{/if}}
+    </div>
+
+    <div class="row">
+        {{#isAdmin session}}
+            <a href="/users/{{../user.id}}/edit">Edit this user</a>
+        {{/isAdmin}}
+    </div>
+    
+    {{#isOwneredByOwnSession user session}}
+
+    <div class="row post">
+        <div class="col-12">
+            <div class="postWrapper borderRadius m-3 border" style="padding:5px;">
+                <form action="/users/{{user.id}}/posts/create" method="POST" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <input class="form-control {{#if errors.title}}is-invalid{{/if}}" style="" id="text" maxlength="18" name="title" rows="7" placeholder="Title"/>
+
+                            <textarea class="form-control {{#if errors.text}}is-invalid{{/if}}" style="" id="text" name="text" rows="7" placeholder="Create a post"></textarea>
+                             {{#if errors.text}} <small class="red">{{errors.text}}</small>{{/if}}
+
+                            <div class="input-group mb-3">
+                                <img src="/documents/preview.jpg" id="img-preview" style="width:100px; height:60px;" />
+                                <label for="file-upload" class="labelPointer">
+                                    <i class="fas fa-camera blackCamera"></i>
+                                <input type="file" class="form-control" name="image" style="border:none;" id="file-upload">
+                                </label>
+                            </div>  
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm" style="width: 100%;">Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+    {{else}}
+
+    {{#if error.notFriend}}
+    <form action="/friendship/{{user.id}}/create" class="mb-2" method="POST">
+        <button type="submit" class="btn btn-primary btn-sm">Follow</button>
+    </form>
+    {{else}}
+    <form action="/friendship/{{user.id}}/delete" class="mb-2" method="POST">
+        <button type="submit" class="btn btn-danger btn-sm">Unfollow</button>
+    </form>
+    {{/if}}
+
+ {{/isOwneredByOwnSession}} 
+    
+    {{!-- {{#if posts}} --}}
+        {{> posts}}
+        {{!-- {{else}}
+        <div class="alert alert-danger">{{user.name}} has not done any post yet</div>
+    {{/if}} --}}
+</div>
