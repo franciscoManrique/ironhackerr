@@ -53,7 +53,16 @@ app.use('/friendship', friendshipRouter);
 app.use('/sessions', sessionsRouter);
 app.use('/users', usersRouter);
 app.use('/help', helpRouter);
+
+app.use('/posts/:postId/like', (req, res, next) => {
+s
+  res.json({
+    likesCount: 10
+  });
+});
+
 app.use('/', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

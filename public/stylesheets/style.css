@@ -28,40 +28,14 @@ body {
   color: white;
 }
 
-/* .fondo-paisaje {
-  background: url('/images/montanhas.jpg');
-  background-size: cover;
-  position: fixed;
-  width: 150%;
-  height: 100%;
-  bottom:0;
-  left:0;
-  z-index: -1;
-} */
-
-/* .globo1, .globo2  {
-  background: url('/images/globo.png') no-repeat center / contain;
-  position: fixed;
-  z-index: 999;
-}
-.globo1  {
-  top: 100px;
-  right:20px;
-  width: 100px;
-  height: 80px;
-}
-
-.globo2  {
-  bottom: 0;
-  right: 80px;
-  width: 150px;
-  height: 100px;
-} */
-
-.profileImg, .postImage, .container-friends img{
+.profileImg, .container-friends img{
   width: 220px;
   height: 200px;
   padding: 10px;
+}
+
+.postImage{
+  width: 300px;
 }
 
 
@@ -100,6 +74,11 @@ a:hover {
 nav{
   padding-bottom: 15px;
 }
+
+/* .containerScroll{
+  overflow: scroll;
+  height: 150px;
+} */
 
 .backgroundImageContainer{
   position: relative;				
@@ -344,4 +323,32 @@ textarea:focus, input:focus{
 
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-8, .col-9, .col-10{
   /* border: 1px solid red; */
+}
+
+.login{
+  left: 50%;
+  width: 40%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 7px;
+  box-shadow: 1px 1px 71px 1px;
+  padding: 20px 22px;
+  background-color: white;
+}
+
+.login .btn{
+width: 100%;
+}
+
+.background{
+  width: 100vw;
+  height: 100vh;
+  background-color:#787373;
+}
+
+.btn_log{
+  display:block;
+  margin-bottom: 15px;
+  text-align: center;
 }

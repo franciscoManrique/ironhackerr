@@ -17,7 +17,7 @@
                     </div>
     
                     <div class="col-1">
-                         <form action="/users/{{../user.id}}/posts/{{post.id}}/like" method="POST" class="formInline">
+                         <form action="/posts/{{post.id}}/like" method="POST" class="formInline form-like">
                              <button type="submit" class="removeBorder" style="background-color: transparent;"><i class="far fa-thumbs-up" style="cursor:pointer;"></i></button>
                             <span>{{post.likes}}</span> 
                         </form> 
@@ -46,7 +46,9 @@
                              <small>{{post.text}}</small>
                         </div>
                     </div>
-                     {{#each ../comments as |comment|}} 
+
+                    <div class="{{#if ../comments}}containerScroll{{/if}}">
+                         {{#each ../comments as |comment|}} 
                         {{#isYourCommentOverPost comment post}}
                          <div class="row hoverIncreaseSize"> 
                              <div class="col-1"></div>
@@ -60,7 +62,7 @@
 
                             <div class="col-1"> 
                                
-                                <form action="/users/{{../user.id}}/posts/{{post.id}}/like" method="POST" class="formInline">
+                                <form action="/users/{{../user.id}}/posts/{{post.id}}/like" method="POST" class="form-like formInline">
                                     <button type="submit" class="removeBorder" style="background-color: transparent;"><i class="far fa-thumbs-up" style="cursor:pointer;"></i></button>
                                     <span>{{post.likes}}</span> 
                                 </form> 
@@ -77,6 +79,7 @@
                         {{/isYourCommentOverPost}} 
                         
                      {{/each}}
+                    </div>
 
                 <form action="/users/{{../user.id}}/posts/{{post.id}}/comments/create" method="POST">
                  <textarea class="form-control m-2 {{#if errors.text}}is-invalid{{/if}}" style="width: 100%;" id="text" name="text" rows="3" placeholder="Comment this post"></textarea> 

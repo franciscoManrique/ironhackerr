@@ -1,9 +1,12 @@
-
-$(window).on('scroll', function(){
-    var scrolled = $(window).scrollTop();
+$(document).on("submit", ".form-like", function(event) {
+    event.preventDefault();
     
-    $('.globo1').css('transform', 'translateY(' + scrolled * .1 + 'px)');
-    $('.globo2').css('transform', 'translateY(' + -scrolled * .2 + 'px)');
+    axios.post(this.action)
+    .then((response) => {
+        likes = response.data.likesCount;
+        
+        element.innerText = likes
+    });
 });
 
 var CLOUDINARY_URL='https://api.cloudinary.com/v1_1/djfmkpp45/upload'; 
@@ -12,7 +15,7 @@ var imgPreview = document.getElementById('img-preview');
 var fileUpload = document.getElementById('file-upload');
 
 fileUpload.onchange = function(e){
-    var file = event.target.files[0];
+    var file = e.target.files[0];
     var formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -73,5 +76,3 @@ fileUpload.onchange = function(e){
 //         this.x = 0;
 //     }
 // };
-
-

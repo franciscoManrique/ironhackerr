@@ -74,24 +74,34 @@ module.exports.doDelete = (req, res, next) => {
   });
 };
 
-
-
-module.exports.doUpdate = (req, res, next) => {
-  likesCounter++;
-  const id = req.params.id;
+// module.exports.doUpdate = (req, res, next) => {
+//   likesCounter++;
+//   const id = req.params.id;
   
-  Post.findByIdAndUpdate(id, {$set:{likes:likesCounter}}, { runValidators: true, new: true })
-  .then(post =>{
+//   Post.findByIdAndUpdate(id, {$set:{likes:likesCounter}}, { runValidators: true, new: true })
+//   .then(post =>{
     
-    if (post) {
-      console.log("POST UPDATED");
-      res.redirect(`/${id}`);
-    } else {     
-      next(createError(404, "Post not updated"));
-    }
-  })
-  .catch(error => {    
-    next(error);
-  });
+//     if (post) {
+//       console.log("POST UPDATED");
+//       res.redirect(`/${id}`);
+//     } else {     
+//       next(createError(404, "Post not updated"));
+//     }
+//   })
+//   .catch(error => {    
+//     next(error);
+//   });
   
-};
+// };
+
+module.exports.doLike = (req,res,next) => {
+  Post.findByIdAndUpdate(id, { $inc: { likes: 1 }}, { runValidators: true, new: true })
+    .then(() => {
+      res.json({
+        message: 'success'
+      });
+    })
+    .catch(error => {    
+      next(error);
+    });
+}
